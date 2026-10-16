@@ -9,9 +9,9 @@
   --ink-panel: #070709;
   --border: rgba(138, 147, 166, 0.5);
   --paper: #ffffff;
-  --accent: #0038ff;
-  --accent-soft: #ebefff;
-  --accent-border: #b8c7ff;
+  --accent: #2452d6;
+  --accent-soft: #eef2fb;
+  --accent-border: #c5d2f2;
   --signal-green: #00a86b;
   --font: "Instrument Sans", sans-serif;
   --track: -0.04em;
@@ -809,35 +809,64 @@ ul {
 
 .contact {
   padding: 0;
+  position: relative;
+  overflow: hidden;
+  margin-left: -1px;
+  margin-right: -1px;
+  width: calc(100% + 2px);
+  margin-bottom: -1px;
+  background:
+    radial-gradient(75% 120% at 100% 100%, rgba(0, 38, 179, 0.6) 0%, transparent 70%),
+    radial-gradient(65% 100% at 0% 0%, rgba(0, 56, 255, 0.45) 0%, transparent 70%),
+    linear-gradient(135deg, #0b1330 0%, #0a1438 40%, #0026b3 100%);
+  border-top: 1px solid rgba(120, 150, 255, 0.28);
 }
 
 .contact .section-head {
-  margin-bottom: 0;
+  margin: 0;
+  width: 100%;
+  border-top: none;
   border-bottom: none;
+  background: transparent;
+  box-shadow: none;
 }
 
 .contact .kicker {
   color: #ffffff;
+  background: none;
+  text-shadow: none;
 }
 
 .contact__panel {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 64px;
-  width: calc(100% + 2px);
-  margin-left: -1px;
-  margin-right: -1px;
-  margin-bottom: -1px;
-  min-height: 440px;
-  border-top: none;
-  background:
-    radial-gradient(70% 120% at 100% 100%, rgba(0, 38, 179, 0.6) 0%, transparent 70%),
-    radial-gradient(60% 100% at 0% 0%, rgba(0, 56, 255, 0.45) 0%, transparent 70%),
-    linear-gradient(135deg, #0b1330 0%, #0a1438 40%, #0026b3 100%);
+  gap: 52px;
+  width: 100%;
+  min-height: 380px;
+  margin: 0;
+  border: none;
+  background: transparent;
   color: #ffffff;
-  padding: 96px 48px 88px;
+  padding: 40px 48px 110px;
+}
+
+.contact__stars-canvas {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.contact .rows,
+.contact__actions {
+  position: relative;
+  z-index: 2;
 }
 
 .contact .rows {

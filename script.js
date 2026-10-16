@@ -164,15 +164,25 @@
       state.hovered = false;
     });
 
+    let simTime = state.phase;
+    let lastNow = performance.now();
+
     function render(now) {
       ensureSize();
-      const t = (now || performance.now()) * 0.001 + state.phase;
+      const currentNow = now || performance.now();
+      const dt = Math.min(0.05, Math.max(0, (currentNow - lastNow) * 0.001));
+      lastNow = currentNow;
+
+      // Balanced speed at rest (0.58x), responsive on hover (0.85x)
+      const timeScale = 0.58 + state.hoverMix * 0.27;
+      simTime += dt * timeScale;
+      const t = simTime;
 
       // Smooth interpolation for hover state and magnetic cursor
       const targetMix = state.hovered ? 1 : 0;
-      state.hoverMix += (targetMix - state.hoverMix) * 0.16;
-      state.smoothX += (state.pointerX - state.smoothX) * 0.2;
-      state.smoothY += (state.pointerY - state.smoothY) * 0.2;
+      state.hoverMix += (targetMix - state.hoverMix) * 0.14;
+      state.smoothX += (state.pointerX - state.smoothX) * 0.16;
+      state.smoothY += (state.pointerY - state.smoothY) * 0.16;
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, width, height);
@@ -973,11 +983,11 @@
 
     function render(now) {
       ensureSize();
-      const t = (now || performance.now()) * 0.001;
+      const t = (now || performance.now()) * 0.0006;
 
       state.hoverMix += ((state.hovered ? 1 : 0) - state.hoverMix) * 0.12;
-      state.smoothX += (state.pointerX - state.smoothX) * 0.16;
-      state.smoothY += (state.pointerY - state.smoothY) * 0.16;
+      state.smoothX += (state.pointerX - state.smoothX) * 0.15;
+      state.smoothY += (state.pointerY - state.smoothY) * 0.15;
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, width, height);
@@ -1039,7 +1049,7 @@
           alpha *= edgeFade;
 
           if (useAccent) {
-            ctx.fillStyle = "rgba(0, 56, 255, " + alpha.toFixed(3) + ")";
+            ctx.fillStyle = "rgba(36, 82, 214, " + alpha.toFixed(3) + ")";
           } else {
             ctx.fillStyle = "rgba(10, 10, 12, " + alpha.toFixed(3) + ")";
           }
@@ -1227,7 +1237,7 @@
         if (age < 0) continue;
 
         const envelope = Math.sin((age / p.duration) * Math.PI);
-        const pt = (now * 0.001) * p.speed + p.seed;
+        const pt = (now * 0.0006) * p.speed + p.seed;
         const halfC = p.cols * 0.5;
         const halfR = p.rows * 0.5;
         const S = p.cell;
@@ -1635,7 +1645,7 @@
     };
 
     function frame(now) {
-      const t = now * 0.001;
+      const t = now * 0.0006;
       bands.forEach(function (b) {
         if (!b.visible) return;
         fit(b);
@@ -1657,4 +1667,106 @@
   }
 
   initBands();
+
+  // ============================================================================
+  // CONTACT FOOTER BOTTOM STARS (subtle, soft fading twinkling stars below buttons)
+  // ============================================================================
+  function initContactStars() {
+    const canvas = document.querySelector(".contact__stars-canvas");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    let w = 0;
+    let h = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let visible = true;
+    const stars = [];
+    const NUM_STARS = 42;
+
+    function resize() {
+      const r = canvas.getBoundingClientRect();
+      w = Math.round(r.width);
+      h = Math.round(r.height);
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+    }
+
+    function createStar(randomY) {
+      return {
+        x: Math.random() * (w || 800),
+        y: randomY ? Math.random() * (h || 120) : (h || 120) * (0.15 + Math.random() * 0.8),
+        size: Math.random() < 0.3 ? 2.5 : Math.random() < 0.65 ? 1.5 : 1.0,
+        speed: 0.5 + Math.random() * 1.0,
+        phase: Math.random() * Math.PI * 2,
+        isCross: Math.random() < 0.28,
+        hue: Math.random() < 0.4 ? "184, 199, 255" : "255, 255, 255",
+      };
+    }
+
+    resize();
+    window.addEventListener("resize", function () {
+      resize();
+      stars.length = 0;
+      for (let i = 0; i < NUM_STARS; i++) {
+        stars.push(createStar(true));
+      }
+    }, { passive: true });
+
+    for (let i = 0; i < NUM_STARS; i++) {
+      stars.push(createStar(true));
+    }
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          visible = e.isIntersecting;
+        });
+      }).observe(canvas);
+    }
+
+    function render(now) {
+      if (!visible) {
+        if (!prefersReduced) requestAnimationFrame(render);
+        return;
+      }
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      const t = now * 0.001;
+
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        // Soft twinkle oscillating with a calm sinusoidal breathing
+        const twinkle = 0.45 + 0.55 * Math.sin(t * s.speed + s.phase);
+        // Vertical gradient fade: softer towards the top, delicate presence towards bottom
+        const yRatio = Math.min(1, s.y / (h || 1));
+        const alpha = Math.max(0, twinkle * (0.25 + 0.75 * yRatio) * 0.68);
+
+        if (alpha < 0.03) continue;
+
+        ctx.fillStyle = "rgba(" + s.hue + ", " + alpha.toFixed(3) + ")";
+
+        if (s.isCross && s.size > 1.2) {
+          const arm = s.size * 1.8;
+          ctx.fillRect(Math.round(s.x - arm), Math.round(s.y), arm * 2 + 1, 1);
+          ctx.fillRect(Math.round(s.x), Math.round(s.y - arm), 1, arm * 2 + 1);
+          ctx.fillRect(Math.round(s.x - 0.5), Math.round(s.y - 0.5), 1.5, 1.5);
+        } else {
+          ctx.fillRect(Math.round(s.x - s.size * 0.5), Math.round(s.y - s.size * 0.5), s.size, s.size);
+        }
+      }
+
+      if (!prefersReduced) requestAnimationFrame(render);
+    }
+
+    if (prefersReduced) {
+      render(performance.now());
+      return;
+    }
+    requestAnimationFrame(render);
+  }
+
+  initContactStars();
 })();

@@ -1071,4 +1071,590 @@
   }
 
   document.querySelectorAll("[data-hero-field]").forEach(initHeroField);
+
+  // ============================================================================
+  // OUTER SHELL AMBIENT SIGNALS (Random square clusters all around the frame)
+  // ============================================================================
+  function initShellCanvas() {
+    const canvas = document.querySelector(".shell-canvas");
+    const pageEl = document.querySelector(".page");
+    if (!canvas || !pageEl) return;
+
+    const ctx = canvas.getContext("2d");
+    let width = 0;
+    let height = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // Square-pixel modes are weighted higher so the shell reads as "carrés"
+    const MODES = [
+      "pixels", "pixels", "blink", "blink", "scan", "bars",
+      "radar", "heatmap", "matrix", "spectrum",
+    ];
+    const SHAPES = ["square", "square", "round", "diamond"];
+    const CELLS = [8, 10, 12, 14, 16];
+    const patches = [];
+    let nextSpawnAt = 0;
+
+    function rand(min, max) {
+      return min + Math.random() * (max - min);
+    }
+
+    function pick(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    // Deterministic per-cell hash in [0, 1)
+    function hash(a, b, c) {
+      const s = Math.sin(a * 127.1 + b * 311.7 + c * 74.7) * 43758.5453;
+      return s - Math.floor(s);
+    }
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+    }
+
+    function maxPatches() {
+      return Math.max(4, Math.min(12, Math.round((width * height) / 160000)));
+    }
+
+    // Visible shell regions around the frame (left, right, top, bottom)
+    function visibleRegions() {
+      const r = pageEl.getBoundingClientRect();
+      const regions = [];
+      if (r.left > 8) regions.push({ x0: 0, y0: 0, x1: r.left, y1: height });
+      if (width - r.right > 8) regions.push({ x0: r.right, y0: 0, x1: width, y1: height });
+      if (r.top > 8) regions.push({ x0: r.left, y0: 0, x1: r.right, y1: r.top });
+      if (height - r.bottom > 8) {
+        regions.push({ x0: r.left, y0: r.bottom, x1: r.right, y1: height });
+      }
+      return regions;
+    }
+
+    function spawnPatch(now) {
+      const regions = visibleRegions();
+      if (!regions.length) return;
+
+      // Pick a region weighted by its visible area
+      let total = 0;
+      regions.forEach(function (g) {
+        g.area = (g.x1 - g.x0) * (g.y1 - g.y0);
+        total += g.area;
+      });
+
+      const cell = pick(CELLS);
+      const cols = 3 + Math.floor(Math.random() * 10);
+      const rows = 3 + Math.floor(Math.random() * 10);
+      const radius = Math.max(cols, rows) * cell * 0.5;
+
+      // Try a few random spots, keep the first that doesn't crowd others
+      for (let attempt = 0; attempt < 8; attempt++) {
+        let roll = Math.random() * total;
+        let region = regions[0];
+        for (let i = 0; i < regions.length; i++) {
+          roll -= regions[i].area;
+          if (roll <= 0) {
+            region = regions[i];
+            break;
+          }
+        }
+
+        const x = rand(region.x0, region.x1);
+        const y = rand(region.y0, region.y1);
+        const crowded = patches.some(function (p) {
+          return Math.hypot(p.x - x, p.y - y) < (p.radius + radius) * 0.9;
+        });
+        if (crowded) continue;
+
+        patches.push({
+          x: x,
+          y: y,
+          cell: cell,
+          cols: cols,
+          rows: rows,
+          radius: radius,
+          mode: pick(MODES),
+          shape: pick(SHAPES),
+          born: now,
+          duration: rand(2600, 9000),
+          speed: rand(0.6, 1.8),
+          seed: Math.random() * 100,
+        });
+        return;
+      }
+    }
+
+    function inShape(shape, dx, dy) {
+      if (shape === "round") return Math.hypot(dx, dy);
+      if (shape === "diamond") return Math.abs(dx) + Math.abs(dy);
+      return Math.max(Math.abs(dx), Math.abs(dy));
+    }
+
+    function drawSquare(px, py, size, color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(px - size * 0.5, py - size * 0.5, size, size);
+    }
+
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+
+    const startNow = performance.now();
+    for (let i = 0; i < 5; i++) {
+      spawnPatch(startNow - Math.random() * 3000);
+    }
+
+    function render(now) {
+      if (now >= nextSpawnAt && patches.length < maxPatches()) {
+        spawnPatch(now);
+        nextSpawnAt = now + rand(180, 1400);
+      }
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, width, height);
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      for (let i = patches.length - 1; i >= 0; i--) {
+        const p = patches[i];
+        const age = now - p.born;
+        if (age >= p.duration) {
+          patches.splice(i, 1);
+          continue;
+        }
+        if (age < 0) continue;
+
+        const envelope = Math.sin((age / p.duration) * Math.PI);
+        const pt = (now * 0.001) * p.speed + p.seed;
+        const halfC = p.cols * 0.5;
+        const halfR = p.rows * 0.5;
+        const S = p.cell;
+        ctx.font = "600 " + Math.round(S * 0.8) + 'px "Instrument Sans", sans-serif';
+
+        for (let r = 0; r < p.rows; r++) {
+          for (let c = 0; c < p.cols; c++) {
+            const dx = (c + 0.5 - halfC) / halfC;
+            const dy = (r + 0.5 - halfR) / halfR;
+            const radial = inShape(p.shape, dx, dy);
+            if (radial > 1) continue;
+
+            const falloff = 1 - radial * 0.75;
+            const px = Math.round(p.x / S) * S + (c - halfC) * S;
+            const py = Math.round(p.y / S) * S + (r - halfR) * S;
+
+            let level = 0; // 0..1 intensity
+            let glyph = null;
+
+            if (p.mode === "pixels") {
+              level = rfNoise(c * 1.7 + p.seed, r * 1.7 + p.seed, pt);
+            } else if (p.mode === "blink") {
+              const h = hash(c, r, p.seed);
+              const tick = Math.floor(pt * (1.5 + h * 3) + h * 10);
+              level = hash(c, r, tick) > 0.55 ? 0.6 + 0.4 * h : 0.08;
+            } else if (p.mode === "scan") {
+              const line = ((pt * 4) % (p.rows + 4)) - 2;
+              level = Math.max(0.08, 1 - Math.abs(r - line) * 0.45);
+            } else if (p.mode === "bars") {
+              const hgt = 0.5 + 0.5 * Math.sin(pt * 3 + c * 0.9 + hash(c, 1, p.seed) * 6);
+              level = (p.rows - r) / p.rows < hgt ? 0.85 : 0.06;
+            } else if (p.mode === "radar") {
+              const wave = Math.cos(radial * 5.5 - pt * 4.2);
+              glyph = radial < 0.22 ? "◉" : wave > 0.55 ? "◎" : wave > 0 ? "○" : "·";
+              level = wave > 0.55 || radial < 0.22 ? 0.9 : 0.4;
+            } else if (p.mode === "heatmap") {
+              const n = rfNoise(c + p.seed, r + p.seed, pt);
+              glyph = GLYPHS_HALFTONE[Math.min(GLYPHS_HALFTONE.length - 1, Math.floor(n * GLYPHS_HALFTONE.length))];
+              level = n;
+            } else if (p.mode === "matrix") {
+              const v = 0.5 + 0.5 * Math.sin(pt * 3.5 + c * 1.3 + r * 1.7);
+              glyph = GLYPHS_SUBBLOCK[Math.min(GLYPHS_SUBBLOCK.length - 1, Math.floor(v * GLYPHS_SUBBLOCK.length))];
+              level = v;
+            } else {
+              const s = 0.5 + 0.5 * Math.sin(c * 0.6 - pt * 5);
+              glyph = GLYPHS_SPECTRUM[Math.min(GLYPHS_SPECTRUM.length - 1, Math.floor(s * GLYPHS_SPECTRUM.length))];
+              level = s;
+            }
+
+            const isPeak = level > 0.66;
+            const alpha = envelope * falloff * (isPeak ? 0.75 : 0.18 + level * 0.3);
+            if (alpha < 0.03) continue;
+
+            const color = isPeak
+              ? "rgba(77, 123, 255, " + alpha.toFixed(3) + ")"
+              : "rgba(184, 199, 255, " + alpha.toFixed(3) + ")";
+
+            if (glyph) {
+              ctx.fillStyle = color;
+              ctx.fillText(glyph, px, py);
+            } else {
+              // Square pixel whose size follows the intensity
+              const size = Math.max(1.5, (S - 2) * (0.25 + 0.75 * level));
+              drawSquare(px, py, size, color);
+            }
+          }
+        }
+      }
+
+      if (!prefersReduced) requestAnimationFrame(render);
+    }
+
+    if (prefersReduced) {
+      // Static frame only: no continuous motion
+      render(startNow + 1500);
+      window.addEventListener("resize", function () {
+        render(startNow + 1500);
+      }, { passive: true });
+      return;
+    }
+    requestAnimationFrame(render);
+  }
+
+  initShellCanvas();
+
+  // ============================================================================
+  // SECTION BANDS (one unique, themed pixel animation per section header)
+  //   Déploiements   → route    : drive-test vehicle sampling coverage along a road
+  //   Accréditations → scan     : verification beam validating a certificate grid
+  //   Formations     → progress : learning bars filling up at their own pace
+  //   Langues        → wave     : voice waveform / spectrum
+  //   Contact        → ping     : packets routed between network nodes
+  // ============================================================================
+  function initBands() {
+    const heads = document.querySelectorAll(".section-head");
+    if (!heads.length) return;
+
+    const MODE_BY_ID = {
+      deploiements: "route",
+      accreditations: "scan",
+      formations: "progress",
+      langues: "wave",
+      contact: "ping",
+    };
+    const FALLBACK = ["route", "scan", "progress", "wave", "ping"];
+    const G = 6;
+    const BLUE = "77,123,255";
+    const ICE = "184,199,255";
+    const WHITE = "255,255,255";
+    const bands = [];
+
+    function bHash(a, b, c) {
+      const s = Math.sin(a * 127.1 + b * 311.7 + c * 74.7) * 43758.5453;
+      return s - Math.floor(s);
+    }
+
+    function sq(ctx, x, y, s, rgb, a) {
+      if (a < 0.02) return;
+      ctx.fillStyle = "rgba(" + rgb + "," + Math.min(1, a).toFixed(3) + ")";
+      ctx.fillRect(Math.round(x - s / 2), Math.round(y - s / 2), s, s);
+    }
+
+    // Dim the animation behind the centered title so it stays readable
+    function textMask(b, x) {
+      const d = Math.abs(x / b.w - 0.5);
+      if (d < 0.14) return 0.2;
+      if (d < 0.28) return 0.2 + ((d - 0.14) / 0.14) * 0.8;
+      return 1;
+    }
+
+    heads.forEach(function (head, idx) {
+      const owner = head.closest("[id]");
+      const mode = (owner && MODE_BY_ID[owner.id]) || FALLBACK[idx % FALLBACK.length];
+      const canvas = document.createElement("canvas");
+      canvas.className = "band-canvas";
+      canvas.setAttribute("aria-hidden", "true");
+      head.insertBefore(canvas, head.firstChild);
+
+      const band = {
+        head: head,
+        canvas: canvas,
+        ctx: canvas.getContext("2d"),
+        mode: mode,
+        w: 0,
+        h: 0,
+        dpr: 1,
+        visible: true,
+        seed: Math.random() * 100,
+        state: {},
+      };
+      bands.push(band);
+
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            band.visible = e.isIntersecting;
+          });
+        }).observe(head);
+      }
+    });
+
+    function fit(b) {
+      const r = b.head.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.round(r.width);
+      const h = Math.round(r.height);
+      if (w !== b.w || h !== b.h || dpr !== b.dpr) {
+        b.w = w;
+        b.h = h;
+        b.dpr = dpr;
+        b.canvas.width = w * dpr;
+        b.canvas.height = h * dpr;
+        b.state = {};
+      }
+    }
+
+    // --- Déploiements: drive-test vehicle measuring coverage along a route ---
+    function drawRoute(b, ctx, now, t) {
+      const w = b.w;
+      const h = b.h;
+      const mid = h / 2;
+      const pathY = function (x) {
+        return mid + Math.sin(x * 0.018 + b.seed) * h * 0.2 + Math.sin(x * 0.047 + b.seed * 2) * h * 0.07;
+      };
+      const span = w + 320;
+      const head = ((t * 90) % span) - 160;
+      const trail = 320;
+
+      // Planned drive route (faint dotted road)
+      for (let x = G / 2; x < w; x += G * 2) {
+        sq(ctx, x, pathY(x), 2, ICE, 0.16 * textMask(b, x));
+      }
+
+      // Measured samples left behind the vehicle, with signal-strength bars
+      for (let x = Math.floor((head - trail) / G) * G + G / 2; x <= head; x += G) {
+        if (x < 0 || x > w) continue;
+        const age = (head - x) / trail;
+        const lvl = rfNoise(x * 0.06 + b.seed, b.seed, 0);
+        const y = pathY(x);
+        const m = textMask(b, x) * (1 - age);
+        sq(ctx, x, y, 4, lvl > 0.6 ? BLUE : ICE, (0.35 + lvl * 0.6) * m);
+        const bars = Math.round(lvl * 3);
+        for (let k = 1; k <= bars; k++) {
+          sq(ctx, x, y - k * G, 3, ICE, 0.3 * m * (1 - k / 4));
+          sq(ctx, x, y + k * G, 3, ICE, 0.12 * m * (1 - k / 4));
+        }
+      }
+
+      // Vehicle + radio ripple
+      if (head >= 0 && head <= w) {
+        const y = pathY(head);
+        const m = textMask(b, head);
+        sq(ctx, head, y, 6, WHITE, 0.95 * m);
+        const rp = (t * 1.6) % 1;
+        const s = 6 + rp * 26;
+        ctx.strokeStyle = "rgba(" + BLUE + "," + ((1 - rp) * 0.7 * m).toFixed(3) + ")";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(Math.round(head - s / 2) + 0.5, Math.round(y - s / 2) + 0.5, s, s);
+      }
+    }
+
+    // --- Accréditations: verification beam validating a certificate grid ---
+    function drawScan(b, ctx, now, t) {
+      const w = b.w;
+      const h = b.h;
+      const cols = Math.ceil(w / G);
+      const rows = Math.ceil(h / G);
+      if (!b.state.hits || b.state.hits.length !== cols) {
+        b.state.hits = new Float32Array(cols).fill(-1e9);
+      }
+      const hits = b.state.hits;
+      const phase = t * 0.55 + b.seed;
+      const lx = (0.5 - 0.5 * Math.cos(phase)) * w;
+      const dir = Math.sin(phase) >= 0 ? 1 : -1;
+      const lc = Math.floor(lx / G);
+      for (let c = Math.max(0, lc - 1); c <= Math.min(cols - 1, lc + 1); c++) hits[c] = now;
+
+      for (let c = 0; c < cols; c++) {
+        const x = c * G + G / 2;
+        const m = textMask(b, x);
+        const decay = Math.exp(-(now - hits[c]) / 900);
+        for (let r = 0; r < rows; r++) {
+          const hs = bHash(c, r, b.seed);
+          if (hs < 0.42) continue;
+          const y = r * G + G / 2;
+          const color = decay > 0.5 && hs > 0.88 ? WHITE : hs > 0.7 ? BLUE : ICE;
+          sq(ctx, x, y, decay > 0.3 ? 4 : 2, color, (0.12 + decay * 0.7 * hs) * m);
+        }
+      }
+
+      // Beam with a glow trailing behind its direction of travel
+      const lm = textMask(b, lx);
+      const g = ctx.createLinearGradient(lx - 34 * dir, 0, lx, 0);
+      g.addColorStop(0, "rgba(" + BLUE + ",0)");
+      g.addColorStop(1, "rgba(120,160,255," + (0.35 * lm).toFixed(3) + ")");
+      ctx.fillStyle = g;
+      ctx.fillRect(Math.min(lx, lx - 34 * dir), 0, 34, h);
+      ctx.fillStyle = "rgba(" + WHITE + "," + (0.85 * lm).toFixed(3) + ")";
+      ctx.fillRect(Math.round(lx), 0, 1, h);
+    }
+
+    // --- Formations: learning progress bars, each at its own pace ---
+    function drawProgress(b, ctx, now, t) {
+      const w = b.w;
+      const h = b.h;
+      const cols = Math.floor(w / G);
+      const rows = Math.floor(h / G);
+      for (let r = 1; r < rows - 1; r += 2) {
+        const sp = 0.07 + bHash(r, 1, b.seed) * 0.14;
+        const off = bHash(r, 2, b.seed);
+        const cyc = (t * sp + off) % 1.25;
+        const fill = Math.min(1, cyc);
+        const flash = cyc > 1 ? 1 - (cyc - 1) / 0.25 : 0;
+        const fc = Math.floor(fill * cols);
+        const y = r * G + G / 2;
+        for (let c = 0; c < cols; c++) {
+          const x = c * G + G / 2;
+          const m = textMask(b, x);
+          if (c < fc) {
+            const d = fc - c;
+            const color = d < 2 ? WHITE : d < 8 ? BLUE : ICE;
+            const a = d < 2 ? 0.95 : d < 8 ? 0.55 : 0.16 + flash * 0.55;
+            sq(ctx, x, y, 4, color, a * m * (0.6 + 0.4 * bHash(c, r, 3)));
+          } else if (bHash(c, r, b.seed) > 0.7) {
+            sq(ctx, x, y, 2, ICE, 0.08 * m);
+          }
+        }
+      }
+    }
+
+    // --- Langues: mirrored voice waveform ---
+    function drawWave(b, ctx, now, t) {
+      const w = b.w;
+      const h = b.h;
+      const mid = h / 2;
+      const maxR = Math.floor((h / 2 - G) / G);
+      for (let x = G / 2; x < w; x += G) {
+        const env = 0.55 + 0.45 * Math.sin(x * 0.004 - t * 0.7 + b.seed);
+        const a1 = Math.sin(x * 0.035 - t * 2.4);
+        const a2 = Math.sin(x * 0.083 + t * 1.7) * 0.6;
+        const a3 = Math.sin(x * 0.011 + t * 0.9) * 0.4;
+        const amp = (Math.abs(a1 + a2 + a3) / 2) * env;
+        const n = Math.round(amp * maxR);
+        const m = textMask(b, x);
+        sq(ctx, x, mid, 2, ICE, 0.25 * m);
+        for (let k = 1; k <= n; k++) {
+          const top = k === n;
+          const color = top ? WHITE : k > n * 0.6 ? BLUE : ICE;
+          const a = (top ? 0.9 : 0.2 + 0.35 * (k / n)) * m;
+          sq(ctx, x, mid - k * G, 4, color, a);
+          sq(ctx, x, mid + k * G, 4, color, a * 0.45);
+        }
+      }
+    }
+
+    // --- Contact: packets routed between nodes, ripple on delivery ---
+    function drawPing(b, ctx, now, t) {
+      const w = b.w;
+      const h = b.h;
+      const st = b.state;
+      if (!st.nodes) {
+        st.nodes = [];
+        for (let i = 0; i < 6; i++) {
+          const left = i < 3;
+          const fx = left ? 0.03 + Math.random() * 0.14 : 0.83 + Math.random() * 0.14;
+          st.nodes.push({
+            x: Math.round((fx * w) / G) * G + G / 2,
+            y: G * 2 + Math.floor(Math.random() * Math.max(1, h / G - 4)) * G + G / 2,
+            left: left,
+            phase: Math.random() * 6,
+          });
+        }
+        st.packets = [];
+        st.rings = [];
+        st.next = now;
+      }
+
+      if (now >= st.next) {
+        const from = st.nodes[Math.floor(Math.random() * st.nodes.length)];
+        const pool = st.nodes.filter(function (n) {
+          return n.left !== from.left;
+        });
+        const to = pool[Math.floor(Math.random() * pool.length)];
+        st.packets.push({ from: from, to: to, born: now, dur: 1400 + Math.random() * 1600 });
+        st.next = now + 300 + Math.random() * 900;
+      }
+
+      // Manhattan route: horizontal → vertical → horizontal
+      function pos(p, s) {
+        const dx = p.to.x - p.from.x;
+        const dy = p.to.y - p.from.y;
+        const h1 = Math.abs(dx) / 2;
+        const v = Math.abs(dy);
+        const sx = Math.sign(dx);
+        if (s <= h1) return [p.from.x + sx * s, p.from.y];
+        if (s <= h1 + v) return [p.from.x + sx * h1, p.from.y + Math.sign(dy) * (s - h1)];
+        return [p.from.x + sx * (h1 + s - h1 - v), p.to.y];
+      }
+
+      for (let i = st.packets.length - 1; i >= 0; i--) {
+        const p = st.packets[i];
+        const prog = (now - p.born) / p.dur;
+        if (prog >= 1) {
+          st.rings.push({ x: p.to.x, y: p.to.y, born: now });
+          st.packets.splice(i, 1);
+          continue;
+        }
+        const L = Math.abs(p.to.x - p.from.x) + Math.abs(p.to.y - p.from.y);
+        const s = prog * L;
+        for (let k = 0; k < 9; k++) {
+          const sk = s - k * G;
+          if (sk < 0) break;
+          const xy = pos(p, sk);
+          const m = textMask(b, xy[0]);
+          sq(ctx, xy[0], xy[1], k === 0 ? 5 : 3, k === 0 ? WHITE : BLUE, (k === 0 ? 0.95 : 0.6 * (1 - k / 9)) * m);
+        }
+      }
+
+      for (let i = st.rings.length - 1; i >= 0; i--) {
+        const r = st.rings[i];
+        const p = (now - r.born) / 700;
+        if (p >= 1) {
+          st.rings.splice(i, 1);
+          continue;
+        }
+        const s = 5 + p * 26;
+        ctx.strokeStyle = "rgba(" + BLUE + "," + ((1 - p) * 0.8).toFixed(3) + ")";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(Math.round(r.x - s / 2) + 0.5, Math.round(r.y - s / 2) + 0.5, s, s);
+      }
+
+      st.nodes.forEach(function (n) {
+        const pulse = 0.55 + 0.45 * Math.sin(t * 2.2 + n.phase);
+        sq(ctx, n.x, n.y, 6, ICE, 0.35 + 0.4 * pulse);
+        sq(ctx, n.x, n.y, 2, WHITE, 0.9);
+      });
+    }
+
+    const DRAW = {
+      route: drawRoute,
+      scan: drawScan,
+      progress: drawProgress,
+      wave: drawWave,
+      ping: drawPing,
+    };
+
+    function frame(now) {
+      const t = now * 0.001;
+      bands.forEach(function (b) {
+        if (!b.visible) return;
+        fit(b);
+        b.ctx.setTransform(b.dpr, 0, 0, b.dpr, 0, 0);
+        b.ctx.clearRect(0, 0, b.w, b.h);
+        DRAW[b.mode](b, b.ctx, now, t);
+      });
+      if (!prefersReduced) requestAnimationFrame(frame);
+    }
+
+    if (prefersReduced) {
+      frame(performance.now());
+      window.addEventListener("resize", function () {
+        frame(performance.now());
+      }, { passive: true });
+      return;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  initBands();
 })();

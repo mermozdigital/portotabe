@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2f0ea" />
+    <title>Ikililou Tabe Zakari — Technicien supérieur réseaux & télécoms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <svg class="grain" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <filter id="grain-filter" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.8"
+          numOctaves="4"
+          seed="2"
+          stitchTiles="stitch"
+        />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grain-filter)" />
+    </svg>
+    <a class="skip-link" href="#deploiements">Aller aux déploiements</a>
+
+    <header class="hero">
+      <div class="hero__frame" data-hero-field>
+        <div class="hero__topbar">
+          <div class="hero__topcell">
+            <span class="hero__index">[ 00 // PROFIL ]</span>
+            <span class="hero__meta">INGÉNIERIE RÉSEAUX &amp; TÉLÉCOMS</span>
+          </div>
+          <div class="hero__topcell hero__topcell--center">
+            <span>6.3703° N, 2.3912° E — COTONOU, BÉNIN</span>
+          </div>
+          <div class="hero__topcell hero__topcell--right">
+            <span class="hero__status-dot" aria-hidden="true"></span>
+            <span>DISPONIBLE // OPÉRATIONS &amp; AUDIT QOS</span>
+          </div>
+        </div>
+
+        <div class="hero__stage">
+          <canvas class="hero__canvas" aria-hidden="true"></canvas>
+
+          <div class="hero__inner">
+            <p class="hero__eyebrow">[ TECHNICIEN SUPÉRIEUR RÉSEAUX &amp; TÉLÉCOMS ]</p>
+            <h1 class="hero__name">Ikililou<br />Tabe Zakari</h1>
+            <p class="hero__lead">
+              Campagnes nationales de Drive Test, audits de couverture radio QoS et
+              architectures Switching &amp; Routing Cisco.
+            </p>
+            <div class="hero__pills" aria-label="Domaines d'expertise">
+              <span class="hero__pill">Drive Test &amp; QoS Mobile</span>
+              <span class="hero__pill">XCAL / XCAP / NEMO / TEMS</span>
+              <span class="hero__pill">Cisco CCNA &amp; Cybersécurité</span>
+              <span class="hero__pill">SSV &amp; Avant-Vente</span>
+            </div>
+            <div class="hero__actions">
+              <a class="btn btn--solid" href="#deploiements">Voir les déploiements</a>
+              <a class="btn btn--ghost" href="tb.pdf" data-cv>CV PDF</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__metrics" aria-label="Indicateurs clés">
+          <div class="hero__metric">
+            <span class="hero__metric-val">12+</span>
+            <span class="hero__metric-label">Villes, pôles industriels &amp; axes routiers audités</span>
+          </div>
+          <div class="hero__metric">
+            <span class="hero__metric-val">04</span>
+            <span class="hero__metric-label">Chaînes d’acquisition maîtrisées (XCAL, XCAP, NEMO, TEMS)</span>
+          </div>
+          <div class="hero__metric">
+            <span class="hero__metric-val">CCNA</span>
+            <span class="hero__metric-label">Switching, Routing, Wireless &amp; Cybersecurity</span>
+          </div>
+          <div class="hero__metric">
+            <span class="hero__metric-val">MOOV</span>
+            <span class="hero__metric-label">Campagnes nationales de contrôle couverture &amp; QoS</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="deploiements" aria-labelledby="dep-title">
+        <h2 class="kicker" id="dep-title">[ Déploiements ]</h2>
+
+        <article class="employer">
+          <header class="employer__head">
+            <h3 class="employer__name">Delcom Group</h3>
+            <p class="employer__dates">Mai 2025 — Aujourd'hui</p>
+          </header>
+
+          <div class="board">
+            <p class="board__client">Client : Moov Africa Benin SA</p>
+
+            <div class="card-grid card-grid--4">
+              <article class="card card--mission" data-signal-card>
+                <div class="card__body">
+                  <p class="card__meta">Novembre 2025 — Juillet 2026</p>
+                  <h4 class="card__title">Campagne nationale et zones stratégiques</h4>
+                  <div class="card__tags">
+                    <span class="tag tag--ink">XCAL</span>
+                    <span class="tag tag--ink">XCAP</span>
+                    <span class="tag tag--ink">NEMO</span>
+                    <span class="tag tag--ink">TEMS</span>
+                  </div>
+                  <p class="card__place">
+                    Cotonou, Abomey-Calavi, Porto-Novo, Parakou, Natitingou, Djougou,
+                    Ouidah, Sèmè-Kpodji, Kpomassè, Allada, Route des Pêches, GDIZ.
+                  </p>
+                </div>
+                <div
+                  class="card__media card__media--signal"
+                  data-signal="heatmap"
+                  aria-hidden="true"
+                >
+                  <canvas class="signal-canvas"></canvas>
+                </div>
+              </article>
+
+              <article class="card card--mission" data-signal-card>
+                <div class="card__body">
+                  <p class="card__meta">Octobre 2025</p>
+                  <h4 class="card__title">Audit hospitalier</h4>
+                  <div class="card__tags">
+                    <span class="tag tag--ink">NEMO</span>
+                    <span class="tag tag--ink">TEMS</span>
+                  </div>
+                  <p class="card__place">Centre Hospitalier International de Calavi (CHIC).</p>
+                </div>
+                <div
+                  class="card__media card__media--signal"
+                  data-signal="radar"
+                  aria-hidden="true"
+                >
+                  <canvas class="signal-canvas"></canvas>
+                </div>
+              </article>
+
+              <article class="card card--mission" data-signal-card>
+                <div class="card__body">
+                  <p class="card__meta">Août 2025</p>
+                  <h4 class="card__title">Audit du pôle industriel</h4>
+                  <div class="card__tags">
+                    <span class="tag tag--ink">NEMO</span>
+                    <span class="tag tag--ink">TEMS</span>
+                  </div>
+                  <p class="card__place">Zone industrielle de Glo-Djigbé (GDIZ).</p>
+                </div>
+                <div
+                  class="card__media card__media--signal"
+                  data-signal="matrix"
+                  aria-hidden="true"
+                >
+                  <canvas class="signal-canvas"></canvas>
+                </div>
+              </article>
+
+              <article class="card card--mission" data-signal-card>
+                <div class="card__body">
+                  <p class="card__meta">Mai — Juin 2025.</p>
+                  <h4 class="card__title">Campagne nationale et zones stratégiques</h4>
+                  <div class="card__tags">
+                    <span class="tag tag--ink">XCAL</span>
+                    <span class="tag tag--ink">XCAP</span>
+                    <span class="tag tag--ink">NEMO</span>
+                    <span class="tag tag--ink">TEMS</span>
+                  </div>
+                  <p class="card__place">
+                    Cotonou, Abomey-Calavi, Porto-Novo, Parakou, et les 10 principaux
+                    axes routiers.
+                  </p>
+                </div>
+                <div
+                  class="card__media card__media--signal"
+                  data-signal="flow"
+                  aria-hidden="true"
+                >
+                  <canvas class="signal-canvas"></canvas>
+                </div>
+              </article>
+            </div>
+
+            <footer class="board__foot">
+              <p class="board__role">Technicien réseau et drive test.</p>
+              <p class="board__summary">
+                Élaboration des drive routes, acquisition terrain et traitement des
+                mesures QoS.
+              </p>
+            </footer>
+          </div>
+        </article>
+
+        <article class="employer">
+          <header class="employer__head">
+            <h3 class="employer__name">Mapcom Technologies</h3>
+            <p class="employer__dates">Janvier 2025 — Avril 2025</p>
+          </header>
+
+          <div class="board">
+            <div class="card-grid card-grid--3">
+              <article class="card card--mission card--short" data-signal-card>
+                <div class="card__body">
+                  <p class="card__meta card__meta--split">
+                    <span>Mission</span><span>n°1</span>
+                  </p>
+                  <h4 class="card__title">
+                    Analyser les besoins exprimés par le client à travers les appels
+                    d’offre
+                  </h4>
+                </div>
+                <div
+                  class="card__media card__media--tall card__media--signal"
+                  data-signal="singularity"
+                  aria-hidden="true"
+                >
+                  <canvas class="signal-canvas"></canvas>
+                </div>
+              </article>
+
+              <article class="card card--mission card--short" data-signal-card>
+                <div class="card__body">
+                  <p class="card__meta card__meta--split">
+                    <span>Mission</span><span>n°2</span>
+                  </p>
+                  <h4 class="card__title">Effectuer la veille technologique ;</h4>
+                </div>
+                <div
+                  class="card__media card__media--tall card__media--signal"
+                  data-signal="prism"
+                  aria-hidden="true"
+                >
+                  <canvas class="signal-canvas"></canvas>
+                </div>
+              </article>
+
+              <article class="card card--mission card--short" data-signal-card>
+                <div class="card__body">
+                  <p class="card__meta card__meta--split">
+                    <span>Mission</span><span>n°3</span>
+                  </p>
+                  <h4 class="card__title">
+                    Rédiger des offres en insérant les différents éléments ;
+                  </h4>
+                </div>
+                <div
+                  class="card__media card__media--tall card__media--signal"
+                  data-signal="tesseract"
+                  aria-hidden="true"
+                >
+                  <canvas class="signal-canvas"></canvas>
+                </div>
+              </article>
+            </div>
+
+            <footer class="board__foot">
+              <p class="board__role">Stagiaire technicien avant-vente.</p>
+            </footer>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" id="accreditations" aria-labelledby="acc-title">
+        <h2 class="kicker" id="acc-title">[ Accréditations ]</h2>
+
+        <div class="card-grid card-grid--3 card-grid--loose">
+          <article class="card card--cred" data-signal-card>
+            <div class="card__body">
+              <p class="card__meta">2026</p>
+              <h3 class="card__heading">
+                CCNA 2 : Switching, Routing, and Wireless Essentials
+              </h3>
+            </div>
+            <div
+              class="card__media card__media--tall card__media--signal"
+              data-signal="ccna-mesh"
+            >
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="tag tag--paper">Cisco Networking Academy</span>
+            </div>
+          </article>
+
+          <article class="card card--cred" data-signal-card>
+            <div class="card__body">
+              <p class="card__meta">2026</p>
+              <h3 class="card__heading">CCNA 1 : Introduction to Networks course</h3>
+            </div>
+            <div
+              class="card__media card__media--tall card__media--signal"
+              data-signal="ccna-osi"
+            >
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="tag tag--paper">Cisco Networking Academy</span>
+            </div>
+          </article>
+
+          <article class="card card--cred" data-signal-card>
+            <div class="card__body">
+              <p class="card__meta">2026</p>
+              <h3 class="card__heading">Introduction to Cybersecurity course</h3>
+            </div>
+            <div
+              class="card__media card__media--tall card__media--signal"
+              data-signal="cyber-vault"
+            >
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="tag tag--paper">Cisco Networking Academy</span>
+            </div>
+          </article>
+
+          <article class="card card--cred" data-signal-card>
+            <div class="card__body">
+              <p class="card__meta">2025</p>
+              <h3 class="card__heading">SSV (Single Site Verification)</h3>
+            </div>
+            <div
+              class="card__media card__media--tall card__media--signal"
+              data-signal="ssv-sector"
+            >
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="tag tag--paper">DELCOM GROUP</span>
+            </div>
+          </article>
+
+          <article class="card card--cred" data-signal-card>
+            <div class="card__body">
+              <p class="card__meta">2024</p>
+              <h3 class="card__heading">CCNA 200-301</h3>
+            </div>
+            <div
+              class="card__media card__media--tall card__media--signal"
+              data-signal="ccna-core"
+            >
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="tag tag--paper">ADE TECHNOLOGY</span>
+            </div>
+          </article>
+
+          <article class="card card--cred" data-signal-card>
+            <div class="card__body">
+              <p class="card__meta">2024</p>
+              <h3 class="card__heading">Formation de la langue Anglaise</h3>
+            </div>
+            <div
+              class="card__media card__media--tall card__media--signal"
+              data-signal="voice-spectrum"
+            >
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="tag tag--paper">TBC</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="formations" aria-labelledby="form-title">
+        <h2 class="kicker" id="form-title">[ Formations ]</h2>
+
+        <ul class="formations">
+          <li class="formation" data-signal-card>
+            <div class="formation__copy">
+              <p class="formation__dates">2021 - 2024</p>
+              <p class="formation__text">
+                Diplôme de technicien en informatique et télécommunications. INSTI
+                (ex-IUT de Lokossa), Bénin
+              </p>
+            </div>
+            <div
+              class="formation__media card__media--signal"
+              data-signal="wifi-fill"
+              aria-hidden="true"
+            >
+              <canvas class="signal-canvas"></canvas>
+            </div>
+          </li>
+          <li class="formation" data-signal-card>
+            <div class="formation__copy">
+              <p class="formation__dates">2022</p>
+              <p class="formation__text">
+                Baccalauréat série D. Complexe scolaire privé Les Palmiers, Porto-Novo,
+                Bénin.
+              </p>
+            </div>
+            <div
+              class="formation__media card__media--signal"
+              data-signal="oscilloscope"
+              aria-hidden="true"
+            >
+              <canvas class="signal-canvas"></canvas>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="section section--split" id="langues" aria-labelledby="lang-title">
+        <h2 class="kicker" id="lang-title">[ Langues &amp; Hobbies ]</h2>
+
+        <div class="split">
+          <div
+            class="split__media card__media--signal"
+            data-signal="globe-wave"
+            data-signal-card
+            aria-hidden="true"
+          >
+            <canvas class="signal-canvas"></canvas>
+          </div>
+          <ul class="rows">
+            <li class="row">
+              <span class="row__label">Français</span>
+              <span class="row__value">Excellent</span>
+            </li>
+            <li class="row">
+              <span class="row__label">Anglais</span>
+              <span class="row__value">Bon</span>
+            </li>
+            <li class="row">
+              <span class="row__label">Fon</span>
+              <span class="row__value">Passable</span>
+            </li>
+            <li class="row">
+              <span class="row__label">Bariba</span>
+              <span class="row__value">Excellent</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="section contact" id="contact">
+      <h2 class="kicker">[ Contact]</h2>
+      <div class="contact__panel">
+        <ul class="rows">
+          <li class="row">
+            <span class="row__label">Email</span>
+            <span class="row__value">Excellent</span>
+          </li>
+          <li class="row">
+            <span class="row__label">Tel</span>
+            <span class="row__value">Bon</span>
+          </li>
+          <li class="row">
+            <span class="row__label">Réseaux Sociaux</span>
+            <span class="row__value">Passable</span>
+          </li>
+        </ul>
+        <div class="contact__actions">
+          <a class="btn btn--on-ink" href="#deploiements">Voir les déploiements</a>
+          <a class="btn btn--on-ink-ghost" href="cv.pdf" data-cv>CV PDF</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

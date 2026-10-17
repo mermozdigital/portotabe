@@ -1336,6 +1336,7 @@
     if (!heads.length) return;
 
     const MODE_BY_ID = {
+      experiences: "route",
       deploiements: "route",
       accreditations: "scan",
       formations: "progress",

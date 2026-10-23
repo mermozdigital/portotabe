@@ -7,14 +7,15 @@
     const mobileMissions = window.matchMedia("(max-width: 720px)");
     let missionsExpanded = false;
 
+    const isEn = document.documentElement.lang === "en";
     function updateMissionList() {
       const collapsed = mobileMissions.matches && !missionsExpanded;
       missionList.classList.toggle("is-collapsed", collapsed);
       missionToggle.hidden = !mobileMissions.matches;
       missionToggle.setAttribute("aria-expanded", String(!collapsed));
       missionToggle.textContent = missionsExpanded
-        ? "Réduire la liste"
-        : "Voir les 6 autres missions";
+        ? (isEn ? "Show less" : "Réduire la liste")
+        : (isEn ? "Show 6 more missions" : "Voir les 6 autres missions");
     }
 
     missionToggle.addEventListener("click", function () {
@@ -65,7 +66,7 @@
     document.querySelectorAll("[data-mission-image]").forEach(function (button) {
       button.addEventListener("click", function () {
         const title = button.dataset.missionTitle || "";
-        const eyebrow = button.dataset.missionEyebrow || "Ordre de mission";
+        const eyebrow = button.dataset.missionEyebrow || (document.documentElement.lang === "en" ? "Mission Order" : "Ordre de mission");
         if (missionEyebrow) {
           missionEyebrow.textContent = eyebrow;
         }

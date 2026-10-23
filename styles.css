@@ -1455,3 +1455,38 @@ html.mission-dialog-open {
     display: none;
   }
 }
+
+/* Language switcher */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-left: 14px;
+  padding: 3px 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.lang-switch__link {
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 2px 4px;
+  transition: color 150ms ease;
+}
+
+.lang-switch__link:hover {
+  color: var(--accent);
+}
+
+.lang-switch__link.is-active {
+  color: #ffffff;
+  background: var(--accent);
+}
+
+.lang-switch__sep {
+  color: var(--border);
+  font-weight: 400;
+}

@@ -2,4 +2,5 @@
 tb.pdf
 source/
 public/**/*.pdf
+!public/Curriculum_vitae_détaille_et_actualise_tabe_zakari_ikililou.pdf
 dist/

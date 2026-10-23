@@ -1,6 +1,67 @@
 (function () {
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Limit browser save/open gestures on images, including modal content.
+  // Displayed image URLs remain accessible through the browser's network tools.
+  const protectedImageSelector = "img, picture, [data-mission-image], .card__media--logo, .mission-dialog__body";
+
+  document.addEventListener("contextmenu", function (event) {
+    if (event.target instanceof Element && event.target.closest(protectedImageSelector)) {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener("dragstart", function (event) {
+    if (event.target instanceof Element && event.target.closest(protectedImageSelector)) {
+      event.preventDefault();
+    }
+  }, true);
+
+  const missionDialog = document.querySelector("#mission-dialog");
+  if (missionDialog) {
+    const missionImage = missionDialog.querySelector(".mission-dialog__image");
+    const missionTitle = missionDialog.querySelector("#mission-dialog-title");
+    const missionError = missionDialog.querySelector(".mission-dialog__error");
+
+    document.querySelectorAll("[data-mission-image]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        const title = button.dataset.missionTitle;
+        missionTitle.textContent = title;
+        missionImage.alt = "Ordre de mission : " + title;
+        missionImage.hidden = false;
+        missionError.hidden = true;
+        missionImage.src = button.dataset.missionImage;
+        missionDialog.showModal();
+        document.documentElement.classList.add("mission-dialog-open");
+        missionDialog.querySelector(".mission-dialog__body").scrollTop = 0;
+      });
+    });
+
+    missionImage.addEventListener("error", function () {
+      missionImage.hidden = true;
+      missionError.hidden = false;
+    });
+
+    missionDialog.querySelector(".mission-dialog__close").addEventListener("click", function () {
+      missionDialog.close();
+    });
+
+    missionDialog.addEventListener("click", function (event) {
+      const bounds = missionDialog.getBoundingClientRect();
+      if (event.target === missionDialog &&
+          (event.clientX < bounds.left || event.clientX > bounds.right ||
+           event.clientY < bounds.top || event.clientY > bounds.bottom)) {
+        missionDialog.close();
+      }
+    });
+
+    missionDialog.addEventListener("close", function () {
+      if (!missionDialog.open) {
+        document.documentElement.classList.remove("mission-dialog-open");
+      }
+    });
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener("click", function (event) {
       const id = link.getAttribute("href");

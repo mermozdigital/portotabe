@@ -587,12 +587,10 @@ ul {
 
 .card__media.card__media--order {
   height: 180px;
-  background:
-    linear-gradient(var(--accent-soft), var(--accent-soft)) padding-box,
-    linear-gradient(135deg, #0b1330, #2452d6 55%, #80b8ff) border-box;
+  background: #06080e;
   position: relative;
   overflow: hidden;
-  border: 2px solid transparent;
+  border: 0;
   display: block;
   text-decoration: none;
   cursor: pointer;
@@ -600,16 +598,26 @@ ul {
   padding: 0;
   font: inherit;
   isolation: isolate;
+  transition: background-color 240ms ease;
 }
 
-.card__media--order::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+.card:hover .card__media.card__media--order,
+.card__media.card__media--order:focus-visible {
+  background: var(--accent);
+}
+
+.card__media--order > .signal-canvas {
+  z-index: 0;
   pointer-events: none;
-  background: rgba(36, 82, 214, 0.14);
-  transition: opacity 240ms ease;
+}
+
+.card__order-preview {
+  position: absolute;
+  inset: 4px;
+  z-index: 1;
+  display: block;
+  overflow: hidden;
+  background: #ffffff;
 }
 
 .card__media--order:focus-visible {
@@ -749,7 +757,8 @@ html.mission-dialog-open {
   -webkit-user-select: none;
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
-  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);
+  filter: grayscale(100%);
+  transition: filter 240ms ease, transform 300ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .card--cred .card__media--order {
@@ -782,12 +791,8 @@ html.mission-dialog-open {
 
 .card:hover .card__order-img,
 .card__media--order:focus-visible .card__order-img {
+  filter: grayscale(0%);
   transform: scale(1.025);
-}
-
-.card:hover .card__media--order::after,
-.card__media--order:focus-visible::after {
-  opacity: 0.35;
 }
 
 .card--short {
@@ -1430,8 +1435,8 @@ html.mission-dialog-open {
     transition: none;
   }
 
-  .card__order-img,
-  .card__media--order::after {
+  .card__media.card__media--order,
+  .card__order-img {
     transition: none;
   }
 

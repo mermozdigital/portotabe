@@ -109,7 +109,7 @@
 
           <div class="board">
             <div class="card-grid card-grid--4" id="delcom-missions">
-              <article class="card card--mission">
+              <article class="card card--mission" data-signal-card>
                 <div class="card__body">
                   <p class="card__meta">Avril — Mai 2026</p>
                   <h4 class="card__title">
@@ -127,23 +127,27 @@
                 <button
                   type="button"
                   class="card__media card__media--order"
+                  data-signal="radar"
                   data-mission-image="public/ordres_mission/mission-cem-nord-2026.png"
                   data-mission-title="CEM — Centre-Nord du Bénin"
                   aria-label="Afficher l'ordre de mission : CEM — Centre-Nord du Bénin"
                   aria-haspopup="dialog"
                   aria-controls="mission-dialog"
                 >
-                  <img draggable="false"
-                    src="public/ordres_mission/thumb-cem-nord-2026.png"
-                    alt="Ordre de mission CEM Moov Africa 2026"
-                    class="card__order-img"
-                    loading="lazy"
-                  />
+                  <canvas class="signal-canvas" aria-hidden="true"></canvas>
+                  <span class="card__order-preview">
+                    <img draggable="false"
+                      src="public/ordres_mission/thumb-cem-nord-2026.png"
+                      alt="Ordre de mission CEM Moov Africa 2026"
+                      class="card__order-img"
+                      loading="lazy"
+                    />
+                  </span>
                   <span class="card__order-badge">Ordre de mission</span>
                 </button>
               </article>
 
-              <article class="card card--mission">
+              <article class="card card--mission" data-signal-card>
                 <div class="card__body">
                   <p class="card__meta">Novembre 2025 — Juillet 2026</p>
                   <h4 class="card__title">
@@ -163,23 +167,27 @@
                 <button
                   type="button"
                   class="card__media card__media--order"
+                  data-signal="heatmap"
                   data-mission-image="public/ordres_mission/mission-qos-cotonou-calavi-porto-2026.png"
                   data-mission-title="QoS — Cotonou, Abomey-Calavi et Porto-Novo"
                   aria-label="Afficher l'ordre de mission : QoS — Cotonou, Abomey-Calavi et Porto-Novo"
                   aria-haspopup="dialog"
                   aria-controls="mission-dialog"
                 >
-                  <img draggable="false"
-                    src="public/ordres_mission/thumb-cotonou-calavi-porto-2026.png"
-                    alt="Ordre de mission Cotonou Porto-Novo Abomey-Calavi 2026"
-                    class="card__order-img"
-                    loading="lazy"
-                  />
+                  <canvas class="signal-canvas" aria-hidden="true"></canvas>
+                  <span class="card__order-preview">
+                    <img draggable="false"
+                      src="public/ordres_mission/thumb-cotonou-calavi-porto-2026.png"
+                      alt="Ordre de mission Cotonou Porto-Novo Abomey-Calavi 2026"
+                      class="card__order-img"
+                      loading="lazy"
+                    />
+                  </span>
                   <span class="card__order-badge">Ordre de mission</span>
                 </button>
               </article>
 
-              <article class="card card--mission">
+              <article class="card card--mission" data-signal-card>
                 <div class="card__body">
                   <p class="card__meta">Octobre 2025</p>
                   <h4 class="card__title">
@@ -195,23 +203,27 @@
                 <button
                   type="button"
                   class="card__media card__media--order"
+                  data-signal="radar"
                   data-mission-image="public/ordres_mission/mission-qos-chic-calavi-2025.png"
                   data-mission-title="QoS — Hôpital CHIC, Abomey-Calavi"
                   aria-label="Afficher l'ordre de mission : QoS — Hôpital CHIC, Abomey-Calavi"
                   aria-haspopup="dialog"
                   aria-controls="mission-dialog"
                 >
-                  <img draggable="false"
-                    src="public/ordres_mission/thumb-chic-calavi-2025.png"
-                    alt="Ordre de mission CHIC Abomey-Calavi 2025"
-                    class="card__order-img"
-                    loading="lazy"
-                  />
+                  <canvas class="signal-canvas" aria-hidden="true"></canvas>
+                  <span class="card__order-preview">
+                    <img draggable="false"
+                      src="public/ordres_mission/thumb-chic-calavi-2025.png"
+                      alt="Ordre de mission CHIC Abomey-Calavi 2025"
+                      class="card__order-img"
+                      loading="lazy"
+                    />
+                  </span>
                   <span class="card__order-badge">Ordre de mission</span>
                 </button>
               </article>
 
-              <article class="card card--mission">
+              <article class="card card--mission" data-signal-card>
                 <div class="card__body">
                   <p class="card__meta">Octobre 2025</p>
                   <h4 class="card__title">
@@ -227,23 +239,27 @@
                 <button
                   type="button"
                   class="card__media card__media--order"
+                  data-signal="matrix"
                   data-mission-image="public/ordres_mission/mission-qos-gdiz-2025.png"
                   data-mission-title="QoS — Zone industrielle de Glo-Djigbé"
                   aria-label="Afficher l'ordre de mission : QoS — Zone industrielle de Glo-Djigbé"
                   aria-haspopup="dialog"
                   aria-controls="mission-dialog"
                 >
-                  <img draggable="false"
-                    src="public/ordres_mission/thumb-gdiz-2025.png"
-                    alt="Ordre de mission GDIZ Glo-Djigbé 2025"
-                    class="card__order-img"
-                    loading="lazy"
-                  />
+                  <canvas class="signal-canvas" aria-hidden="true"></canvas>
+                  <span class="card__order-preview">
+                    <img draggable="false"
+                      src="public/ordres_mission/thumb-gdiz-2025.png"
+                      alt="Ordre de mission GDIZ Glo-Djigbé 2025"
+                      class="card__order-img"
+                      loading="lazy"
+                    />
+                  </span>
                   <span class="card__order-badge">Ordre de mission</span>
                 </button>
               </article>
 
-              <article class="card card--mission">
+              <article class="card card--mission" data-signal-card>
                 <div class="card__body">
                   <p class="card__meta">Décembre 2025</p>
                   <h4 class="card__title">
@@ -263,23 +279,27 @@
                 <button
                   type="button"
                   class="card__media card__media--order"
+                  data-signal="flow"
                   data-mission-image="public/ordres_mission/mission-qos-parakou-2025.png"
                   data-mission-title="QoS — Parakou"
                   aria-label="Afficher l'ordre de mission : QoS — Parakou"
                   aria-haspopup="dialog"
                   aria-controls="mission-dialog"
                 >
-                  <img draggable="false"
-                    src="public/ordres_mission/thumb-parakou-2025.png"
-                    alt="Ordre de mission Parakou et axes routiers 2025"
-                    class="card__order-img"
-                    loading="lazy"
-                  />
+                  <canvas class="signal-canvas" aria-hidden="true"></canvas>
+                  <span class="card__order-preview">
+                    <img draggable="false"
+                      src="public/ordres_mission/thumb-parakou-2025.png"
+                      alt="Ordre de mission Parakou et axes routiers 2025"
+                      class="card__order-img"
+                      loading="lazy"
+                    />
+                  </span>
                   <span class="card__order-badge">Ordre de mission</span>
                 </button>
               </article>
 
-              <article class="card card--mission">
+              <article class="card card--mission" data-signal-card>
                 <div class="card__body">
                   <p class="card__meta">Février 2026</p>
                   <h4 class="card__title">Mesures statiques de contrôle de la couverture et de la qualité de service du réseau mobile de MOOV AFRICA BENIN.</h4>
@@ -292,23 +312,27 @@
                 <button
                   type="button"
                   class="card__media card__media--order"
+                  data-signal="heatmap"
                   data-mission-image="public/ordres_mission/Mission_QoS_Statique-Mobilité_Ouidah_2025.png"
                   data-mission-title="QoS — Ouidah, février 2026"
                   aria-label="Afficher l'ordre de mission : QoS — Ouidah, février 2026"
                   aria-haspopup="dialog"
                   aria-controls="mission-dialog"
                 >
-                  <img draggable="false"
-                    src="public/ordres_mission/thumb-ouidah-fevrier-2026.png"
-                    alt="Ordre de mission : Ouidah, Février 2026"
-                    class="card__order-img"
-                    loading="lazy"
-                  />
+                  <canvas class="signal-canvas" aria-hidden="true"></canvas>
+                  <span class="card__order-preview">
+                    <img draggable="false"
+                      src="public/ordres_mission/thumb-ouidah-fevrier-2026.png"
+                      alt="Ordre de mission : Ouidah, Février 2026"
+                      class="card__order-img"
+                      loading="lazy"
+                    />
+                  </span>
                   <span class="card__order-badge">Ordre de mission</span>
                 </button>
               </article>
 
-              <article class="card card--mission">
+              <article class="card card--mission" data-signal-card>
                 <div class="card__body">
                   <p class="card__meta">Novembre 2025</p>
                   <h4 class="card__title">Mesures mobiles et statiques de contrôle de la couverture et de la qualité de service du réseau mobile de MOOV AFRICA BENIN.</h4>
@@ -321,23 +345,27 @@
                 <button
                   type="button"
                   class="card__media card__media--order"
+                  data-signal="radar"
                   data-mission-image="public/ordres_mission/Mission_QoS_Statique-Mobilité_Ouidah_2026.png"
                   data-mission-title="QoS — Ouidah, novembre 2025"
                   aria-label="Afficher l'ordre de mission : QoS — Ouidah, novembre 2025"
                   aria-haspopup="dialog"
                   aria-controls="mission-dialog"
                 >
-                  <img draggable="false"
-                    src="public/ordres_mission/thumb-ouidah-novembre-2025.png"
-                    alt="Ordre de mission : Ouidah, Novembre 2025"
-                    class="card__order-img"
-                    loading="lazy"
-                  />
+                  <canvas class="signal-canvas" aria-hidden="true"></canvas>
+                  <span class="card__order-preview">
+                    <img draggable="false"
+                      src="public/ordres_mission/thumb-ouidah-novembre-2025.png"
+                      alt="Ordre de mission : Ouidah, Novembre 2025"
+                      class="card__order-img"
+                      loading="lazy"
+                    />
+                  </span>
                   <span class="card__order-badge">Ordre de mission</span>
                 </button>
               </article>
 
-              <article class="card card--mission">
+              <article class="card card--mission" data-signal-card>
                 <div class="card__body">
                   <p class="card__meta">Novembre 2025</p>
                   <h4 class="card__title">Mesures mobiles et statiques de contrôle de la couverture et de la qualité de service du réseau mobile de MOOV AFRICA BENIN.</h4>
@@ -350,18 +378,22 @@
                 <button
                   type="button"
                   class="card__media card__media--order"
+                  data-signal="flow"
                   data-mission-image="public/ordres_mission/mission-qos-parakou-djougou-2025.png"
                   data-mission-title="QoS — Parakou et Djougou"
                   aria-label="Afficher l'ordre de mission : QoS — Parakou et Djougou"
                   aria-haspopup="dialog"
                   aria-controls="mission-dialog"
                 >
-                  <img draggable="false"
-                    src="public/ordres_mission/thumb-parakou-djougou-novembre-2025.png"
-                    alt="Ordre de mission : Parakou et Djougou, Novembre 2025"
-                    class="card__order-img"
-                    loading="lazy"
-                  />
+                  <canvas class="signal-canvas" aria-hidden="true"></canvas>
+                  <span class="card__order-preview">
+                    <img draggable="false"
+                      src="public/ordres_mission/thumb-parakou-djougou-novembre-2025.png"
+                      alt="Ordre de mission : Parakou et Djougou, Novembre 2025"
+                      class="card__order-img"
+                      loading="lazy"
+                    />
+                  </span>
                   <span class="card__order-badge">Ordre de mission</span>
                 </button>
               </article>
@@ -461,7 +493,7 @@
         </header>
 
         <div class="card-grid card-grid--3 card-grid--loose">
-          <article class="card card--cred">
+          <article class="card card--cred" data-signal-card>
             <div class="card__body">
               <p class="card__meta">Juin 2026</p>
               <h3 class="card__heading">
@@ -471,6 +503,7 @@
             <button
               type="button"
               class="card__media card__media--order"
+              data-signal="ccna-mesh"
               data-mission-image="public/certifications/cert-ccna-2.png"
               data-mission-title="CCNA 2 : Switching, Routing, and Wireless Essentials — Cisco Networking Academy"
               data-mission-eyebrow="Certification"
@@ -478,18 +511,21 @@
               aria-haspopup="dialog"
               aria-controls="mission-dialog"
             >
-              <img
-                src="public/certifications/thumb-ccna-2.png"
-                alt="Certification CCNA 2 : Switching, Routing, and Wireless Essentials"
-                class="card__order-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="card__order-preview">
+                <img
+                  src="public/certifications/thumb-ccna-2.png"
+                  alt="Certification CCNA 2 : Switching, Routing, and Wireless Essentials"
+                  class="card__order-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </span>
               <span class="card__order-badge">Cisco Networking Academy</span>
             </button>
           </article>
 
-          <article class="card card--cred">
+          <article class="card card--cred" data-signal-card>
             <div class="card__body">
               <p class="card__meta">Mai 2026</p>
               <h3 class="card__heading">
@@ -499,6 +535,7 @@
             <button
               type="button"
               class="card__media card__media--order"
+              data-signal="prism"
               data-mission-image="public/certifications/cert-onu-snc.png"
               data-mission-title="Certificat d'Appréciation — Relais de communication SNC (VNU · PNUD)"
               data-mission-eyebrow="Certification"
@@ -506,18 +543,21 @@
               aria-haspopup="dialog"
               aria-controls="mission-dialog"
             >
-              <img
-                src="public/certifications/thumb-onu-snc.png"
-                alt="Certificat d'Appréciation — Relais de communication SNC"
-                class="card__order-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="card__order-preview">
+                <img
+                  src="public/certifications/thumb-onu-snc.png"
+                  alt="Certificat d'Appréciation — Relais de communication SNC"
+                  class="card__order-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </span>
               <span class="card__order-badge">VNU · PNUD</span>
             </button>
           </article>
 
-          <article class="card card--cred">
+          <article class="card card--cred" data-signal-card>
             <div class="card__body">
               <p class="card__meta">Avril 2026</p>
               <h3 class="card__heading">
@@ -527,6 +567,7 @@
             <button
               type="button"
               class="card__media card__media--order"
+              data-signal="tesseract"
               data-mission-image="public/certifications/cert-gestion-projet.png"
               data-mission-title="Fondamentaux de la gestion de projet — DisasterReady"
               data-mission-eyebrow="Certification"
@@ -534,18 +575,21 @@
               aria-haspopup="dialog"
               aria-controls="mission-dialog"
             >
-              <img
-                src="public/certifications/thumb-gestion-projet.png"
-                alt="Certification Fondamentaux de la gestion de projet"
-                class="card__order-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="card__order-preview">
+                <img
+                  src="public/certifications/thumb-gestion-projet.png"
+                  alt="Certification Fondamentaux de la gestion de projet"
+                  class="card__order-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </span>
               <span class="card__order-badge">DisasterReady</span>
             </button>
           </article>
 
-          <article class="card card--cred">
+          <article class="card card--cred" data-signal-card>
             <div class="card__body">
               <p class="card__meta">Avril 2026</p>
               <h3 class="card__heading">
@@ -555,6 +599,7 @@
             <button
               type="button"
               class="card__media card__media--order"
+              data-signal="oscilloscope"
               data-mission-image="public/certifications/cert-unesco-educateurs.png"
               data-mission-title="Améliorer les compétences numériques des éducateurs en alphabétisation — UNESCO (UIL)"
               data-mission-eyebrow="Certification"
@@ -562,18 +607,21 @@
               aria-haspopup="dialog"
               aria-controls="mission-dialog"
             >
-              <img
-                src="public/certifications/thumb-unesco-educateurs.png"
-                alt="Certification Compétences numériques des éducateurs — UNESCO (UIL)"
-                class="card__order-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="card__order-preview">
+                <img
+                  src="public/certifications/thumb-unesco-educateurs.png"
+                  alt="Certification Compétences numériques des éducateurs — UNESCO (UIL)"
+                  class="card__order-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </span>
               <span class="card__order-badge">UNESCO (UIL)</span>
             </button>
           </article>
 
-          <article class="card card--cred">
+          <article class="card card--cred" data-signal-card>
             <div class="card__body">
               <p class="card__meta">Avril 2026</p>
               <h3 class="card__heading">Introduction to Cybersecurity course</h3>
@@ -581,6 +629,7 @@
             <button
               type="button"
               class="card__media card__media--order"
+              data-signal="cyber-vault"
               data-mission-image="public/certifications/cert-cybersecurity.png"
               data-mission-title="Introduction to Cybersecurity course — Cisco Networking Academy"
               data-mission-eyebrow="Certification"
@@ -588,18 +637,21 @@
               aria-haspopup="dialog"
               aria-controls="mission-dialog"
             >
-              <img
-                src="public/certifications/thumb-cybersecurity.png"
-                alt="Certification Introduction to Cybersecurity — Cisco Networking Academy"
-                class="card__order-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="card__order-preview">
+                <img
+                  src="public/certifications/thumb-cybersecurity.png"
+                  alt="Certification Introduction to Cybersecurity — Cisco Networking Academy"
+                  class="card__order-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </span>
               <span class="card__order-badge">Cisco Networking Academy</span>
             </button>
           </article>
 
-          <article class="card card--cred">
+          <article class="card card--cred" data-signal-card>
             <div class="card__body">
               <p class="card__meta">Avril 2026</p>
               <h3 class="card__heading">CCNA 1 : Introduction to Networks course</h3>
@@ -607,6 +659,7 @@
             <button
               type="button"
               class="card__media card__media--order"
+              data-signal="ccna-osi"
               data-mission-image="public/certifications/cert-ccna-1.png"
               data-mission-title="CCNA 1 : Introduction to Networks course — Cisco Networking Academy"
               data-mission-eyebrow="Certification"
@@ -614,18 +667,21 @@
               aria-haspopup="dialog"
               aria-controls="mission-dialog"
             >
-              <img
-                src="public/certifications/thumb-ccna-1.png"
-                alt="Certification CCNA 1 : Introduction to Networks — Cisco Networking Academy"
-                class="card__order-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="card__order-preview">
+                <img
+                  src="public/certifications/thumb-ccna-1.png"
+                  alt="Certification CCNA 1 : Introduction to Networks — Cisco Networking Academy"
+                  class="card__order-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </span>
               <span class="card__order-badge">Cisco Networking Academy</span>
             </button>
           </article>
 
-          <article class="card card--cred">
+          <article class="card card--cred" data-signal-card>
             <div class="card__body">
               <p class="card__meta">Avril 2026</p>
               <h3 class="card__heading">
@@ -635,6 +691,7 @@
             <button
               type="button"
               class="card__media card__media--order"
+              data-signal="ccna-core"
               data-mission-image="public/certifications/cert-unicef-c4d.png"
               data-mission-title="Communication for Development (C4D) — UNICEF"
               data-mission-eyebrow="Certification"
@@ -642,18 +699,21 @@
               aria-haspopup="dialog"
               aria-controls="mission-dialog"
             >
-              <img
-                src="public/certifications/thumb-unicef-c4d.png"
-                alt="Certification Communication for Development (C4D) — UNICEF"
-                class="card__order-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="card__order-preview">
+                <img
+                  src="public/certifications/thumb-unicef-c4d.png"
+                  alt="Certification Communication for Development (C4D) — UNICEF"
+                  class="card__order-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </span>
               <span class="card__order-badge">UNICEF</span>
             </button>
           </article>
 
-          <article class="card card--cred">
+          <article class="card card--cred" data-signal-card>
             <div class="card__body">
               <p class="card__meta">2025</p>
               <h3 class="card__heading">SSV (Single Site Verification)</h3>
@@ -661,6 +721,7 @@
             <button
               type="button"
               class="card__media card__media--order"
+              data-signal="ssv-sector"
               data-mission-image="public/certifications/cert-ssv-delcom.png"
               data-mission-title="Single Site Verification (SSV) — DELCOM GROUP"
               data-mission-eyebrow="Certification"
@@ -668,18 +729,21 @@
               aria-haspopup="dialog"
               aria-controls="mission-dialog"
             >
-              <img
-                src="public/certifications/thumb-ssv-delcom.png"
-                alt="Attestation de formation SSV (Single Site Verification) — DELCOM GROUP"
-                class="card__order-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="card__order-preview">
+                <img
+                  src="public/certifications/thumb-ssv-delcom.png"
+                  alt="Attestation de formation SSV (Single Site Verification) — DELCOM GROUP"
+                  class="card__order-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </span>
               <span class="card__order-badge">DELCOM GROUP</span>
             </button>
           </article>
 
-          <article class="card card--cred">
+          <article class="card card--cred" data-signal-card>
             <div class="card__body">
               <p class="card__meta">2024</p>
               <h3 class="card__heading">Formation de la langue Anglaise</h3>
@@ -687,6 +751,7 @@
             <button
               type="button"
               class="card__media card__media--order"
+              data-signal="voice-spectrum"
               data-mission-image="public/certifications/cert-anglais-tbc.png"
               data-mission-title="English Language Proficiency Certificate — TBC"
               data-mission-eyebrow="Certification"
@@ -694,13 +759,16 @@
               aria-haspopup="dialog"
               aria-controls="mission-dialog"
             >
-              <img
-                src="public/certifications/thumb-anglais-tbc.png"
-                alt="English Language Proficiency Certificate — TBC"
-                class="card__order-img"
-                loading="lazy"
-                draggable="false"
-              />
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <span class="card__order-preview">
+                <img
+                  src="public/certifications/thumb-anglais-tbc.png"
+                  alt="English Language Proficiency Certificate — TBC"
+                  class="card__order-img"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </span>
               <span class="card__order-badge">TBC</span>
             </button>
           </article>

@@ -1,33 +1,76 @@
 (function () {
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  const missionList = document.querySelector("#delcom-missions");
+  const missionToggle = document.querySelector(".mission-list-toggle");
+  if (missionList && missionToggle) {
+    const mobileMissions = window.matchMedia("(max-width: 720px)");
+    let missionsExpanded = false;
+
+    function updateMissionList() {
+      const collapsed = mobileMissions.matches && !missionsExpanded;
+      missionList.classList.toggle("is-collapsed", collapsed);
+      missionToggle.hidden = !mobileMissions.matches;
+      missionToggle.setAttribute("aria-expanded", String(!collapsed));
+      missionToggle.textContent = missionsExpanded
+        ? "Réduire la liste"
+        : "Voir les 6 autres missions";
+    }
+
+    missionToggle.addEventListener("click", function () {
+      missionsExpanded = !missionsExpanded;
+      updateMissionList();
+      if (!missionsExpanded) {
+        missionToggle.scrollIntoView({ block: "nearest", behavior: "instant" });
+      }
+    });
+    mobileMissions.addEventListener("change", updateMissionList);
+    updateMissionList();
+  }
+
   // Limit browser save/open gestures on images, including modal content.
   // Displayed image URLs remain accessible through the browser's network tools.
-  const protectedImageSelector = "img, picture, [data-mission-image], .card__media--logo, .mission-dialog__body";
+  const protectedImageSelector = "img, picture, [data-mission-image], .card__media--logo, .card__media--order, .mission-dialog, .mission-dialog__body, .mission-dialog__image, .mission-dialog__shield";
 
   document.addEventListener("contextmenu", function (event) {
     if (event.target instanceof Element && event.target.closest(protectedImageSelector)) {
       event.preventDefault();
+      return false;
     }
   }, true);
 
   document.addEventListener("dragstart", function (event) {
     if (event.target instanceof Element && event.target.closest(protectedImageSelector)) {
       event.preventDefault();
+      return false;
     }
   }, true);
+
+  document.addEventListener("keydown", function (event) {
+    if ((event.ctrlKey || event.metaKey) && (event.key === "s" || event.key === "S")) {
+      const dialog = document.querySelector("#mission-dialog");
+      if (dialog && dialog.open) {
+        event.preventDefault();
+      }
+    }
+  });
 
   const missionDialog = document.querySelector("#mission-dialog");
   if (missionDialog) {
     const missionImage = missionDialog.querySelector(".mission-dialog__image");
     const missionTitle = missionDialog.querySelector("#mission-dialog-title");
     const missionError = missionDialog.querySelector(".mission-dialog__error");
+    const missionEyebrow = missionDialog.querySelector(".mission-dialog__eyebrow");
 
     document.querySelectorAll("[data-mission-image]").forEach(function (button) {
       button.addEventListener("click", function () {
-        const title = button.dataset.missionTitle;
+        const title = button.dataset.missionTitle || "";
+        const eyebrow = button.dataset.missionEyebrow || "Ordre de mission";
+        if (missionEyebrow) {
+          missionEyebrow.textContent = eyebrow;
+        }
         missionTitle.textContent = title;
-        missionImage.alt = "Ordre de mission : " + title;
+        missionImage.alt = eyebrow + " : " + title;
         missionImage.hidden = false;
         missionError.hidden = true;
         missionImage.src = button.dataset.missionImage;

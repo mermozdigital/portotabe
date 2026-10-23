@@ -108,7 +108,7 @@
           </header>
 
           <div class="board">
-            <div class="card-grid card-grid--4">
+            <div class="card-grid card-grid--4" id="delcom-missions">
               <article class="card card--mission">
                 <div class="card__body">
                   <p class="card__meta">Avril — Mai 2026</p>
@@ -367,6 +367,14 @@
               </article>
             </div>
 
+            <button
+              class="btn mission-list-toggle"
+              type="button"
+              aria-controls="delcom-missions"
+              aria-expanded="false"
+              hidden
+            >Voir les 6 autres missions</button>
+
             <footer class="board__foot">
               <p class="board__role">Technicien réseau et drive test.</p>
               <div class="board__summary">
@@ -383,7 +391,7 @@
           </header>
 
           <div class="board">
-            <div class="card-grid card-grid--4">
+            <div class="card-grid card-grid--3">
               <article class="card card--experience">
                 <div class="card__body">
                   <p class="card__meta">Janvier — Avril 2025</p>
@@ -398,25 +406,6 @@
                     src="public/logo/LOGO DE MAPCOM TECHNOLOGIES.jpg"
                     alt="Logo Mapcom Technologies"
                     class="card__logo-img card__logo-img--mapcom"
-                    loading="lazy"
-                  />
-                </div>
-              </article>
-
-              <article class="card card--experience">
-                <div class="card__body">
-                  <p class="card__meta">Août — Décembre 2024</p>
-                  <h4 class="card__heading">ADE Technology</h4>
-                  <p class="card__role-sub">Apprenant en réseaux informatique</p>
-                  <p class="card__desc">
-                    Maîtriser les technologies de routage, commutation, technologies Wi-Fi et administration de réseaux.
-                  </p>
-                </div>
-                <div class="card__media card__media--logo">
-                  <img draggable="false"
-                    src="public/logo/LOGO DE ADE TECHNOLOGY.jpg"
-                    alt="Logo ADE Technology"
-                    class="card__logo-img card__logo-img--ade"
                     loading="lazy"
                   />
                 </div>
@@ -472,90 +461,248 @@
         </header>
 
         <div class="card-grid card-grid--3 card-grid--loose">
-          <article class="card card--cred" data-signal-card>
+          <article class="card card--cred">
             <div class="card__body">
-              <p class="card__meta">2026</p>
+              <p class="card__meta">Juin 2026</p>
               <h3 class="card__heading">
                 CCNA 2 : Switching, Routing, and Wireless Essentials
               </h3>
             </div>
-            <div
-              class="card__media card__media--tall card__media--signal"
-              data-signal="ccna-mesh"
+            <button
+              type="button"
+              class="card__media card__media--order"
+              data-mission-image="public/certifications/cert-ccna-2.png"
+              data-mission-title="CCNA 2 : Switching, Routing, and Wireless Essentials — Cisco Networking Academy"
+              data-mission-eyebrow="Certification"
+              aria-label="Afficher la certification : CCNA 2 : Switching, Routing, and Wireless Essentials"
+              aria-haspopup="dialog"
+              aria-controls="mission-dialog"
             >
-              <canvas class="signal-canvas" aria-hidden="true"></canvas>
-              <span class="tag tag--paper">Cisco Networking Academy</span>
-            </div>
+              <img
+                src="public/certifications/thumb-ccna-2.png"
+                alt="Certification CCNA 2 : Switching, Routing, and Wireless Essentials"
+                class="card__order-img"
+                loading="lazy"
+                draggable="false"
+              />
+              <span class="card__order-badge">Cisco Networking Academy</span>
+            </button>
           </article>
 
-          <article class="card card--cred" data-signal-card>
+          <article class="card card--cred">
             <div class="card__body">
-              <p class="card__meta">2026</p>
-              <h3 class="card__heading">CCNA 1 : Introduction to Networks course</h3>
+              <p class="card__meta">Mai 2026</p>
+              <h3 class="card__heading">
+                Certificat d'Appréciation — Relais de communication SNC
+              </h3>
             </div>
-            <div
-              class="card__media card__media--tall card__media--signal"
-              data-signal="ccna-osi"
+            <button
+              type="button"
+              class="card__media card__media--order"
+              data-mission-image="public/certifications/cert-onu-snc.png"
+              data-mission-title="Certificat d'Appréciation — Relais de communication SNC (VNU · PNUD)"
+              data-mission-eyebrow="Certification"
+              aria-label="Afficher la certification : Certificat d'Appréciation — Relais de communication SNC"
+              aria-haspopup="dialog"
+              aria-controls="mission-dialog"
             >
-              <canvas class="signal-canvas" aria-hidden="true"></canvas>
-              <span class="tag tag--paper">Cisco Networking Academy</span>
-            </div>
+              <img
+                src="public/certifications/thumb-onu-snc.png"
+                alt="Certificat d'Appréciation — Relais de communication SNC"
+                class="card__order-img"
+                loading="lazy"
+                draggable="false"
+              />
+              <span class="card__order-badge">VNU · PNUD</span>
+            </button>
           </article>
 
-          <article class="card card--cred" data-signal-card>
+          <article class="card card--cred">
             <div class="card__body">
-              <p class="card__meta">2026</p>
+              <p class="card__meta">Avril 2026</p>
+              <h3 class="card__heading">
+                Fondamentaux de la gestion de projet
+              </h3>
+            </div>
+            <button
+              type="button"
+              class="card__media card__media--order"
+              data-mission-image="public/certifications/cert-gestion-projet.png"
+              data-mission-title="Fondamentaux de la gestion de projet — DisasterReady"
+              data-mission-eyebrow="Certification"
+              aria-label="Afficher la certification : Fondamentaux de la gestion de projet"
+              aria-haspopup="dialog"
+              aria-controls="mission-dialog"
+            >
+              <img
+                src="public/certifications/thumb-gestion-projet.png"
+                alt="Certification Fondamentaux de la gestion de projet"
+                class="card__order-img"
+                loading="lazy"
+                draggable="false"
+              />
+              <span class="card__order-badge">DisasterReady</span>
+            </button>
+          </article>
+
+          <article class="card card--cred">
+            <div class="card__body">
+              <p class="card__meta">Avril 2026</p>
+              <h3 class="card__heading">
+                Compétences numériques des éducateurs
+              </h3>
+            </div>
+            <button
+              type="button"
+              class="card__media card__media--order"
+              data-mission-image="public/certifications/cert-unesco-educateurs.png"
+              data-mission-title="Améliorer les compétences numériques des éducateurs en alphabétisation — UNESCO (UIL)"
+              data-mission-eyebrow="Certification"
+              aria-label="Afficher la certification : Compétences numériques des éducateurs"
+              aria-haspopup="dialog"
+              aria-controls="mission-dialog"
+            >
+              <img
+                src="public/certifications/thumb-unesco-educateurs.png"
+                alt="Certification Compétences numériques des éducateurs — UNESCO (UIL)"
+                class="card__order-img"
+                loading="lazy"
+                draggable="false"
+              />
+              <span class="card__order-badge">UNESCO (UIL)</span>
+            </button>
+          </article>
+
+          <article class="card card--cred">
+            <div class="card__body">
+              <p class="card__meta">Avril 2026</p>
               <h3 class="card__heading">Introduction to Cybersecurity course</h3>
             </div>
-            <div
-              class="card__media card__media--tall card__media--signal"
-              data-signal="cyber-vault"
+            <button
+              type="button"
+              class="card__media card__media--order"
+              data-mission-image="public/certifications/cert-cybersecurity.png"
+              data-mission-title="Introduction to Cybersecurity course — Cisco Networking Academy"
+              data-mission-eyebrow="Certification"
+              aria-label="Afficher la certification : Introduction to Cybersecurity course"
+              aria-haspopup="dialog"
+              aria-controls="mission-dialog"
             >
-              <canvas class="signal-canvas" aria-hidden="true"></canvas>
-              <span class="tag tag--paper">Cisco Networking Academy</span>
-            </div>
+              <img
+                src="public/certifications/thumb-cybersecurity.png"
+                alt="Certification Introduction to Cybersecurity — Cisco Networking Academy"
+                class="card__order-img"
+                loading="lazy"
+                draggable="false"
+              />
+              <span class="card__order-badge">Cisco Networking Academy</span>
+            </button>
           </article>
 
-          <article class="card card--cred" data-signal-card>
+          <article class="card card--cred">
+            <div class="card__body">
+              <p class="card__meta">Avril 2026</p>
+              <h3 class="card__heading">CCNA 1 : Introduction to Networks course</h3>
+            </div>
+            <button
+              type="button"
+              class="card__media card__media--order"
+              data-mission-image="public/certifications/cert-ccna-1.png"
+              data-mission-title="CCNA 1 : Introduction to Networks course — Cisco Networking Academy"
+              data-mission-eyebrow="Certification"
+              aria-label="Afficher la certification : CCNA 1 : Introduction to Networks course"
+              aria-haspopup="dialog"
+              aria-controls="mission-dialog"
+            >
+              <img
+                src="public/certifications/thumb-ccna-1.png"
+                alt="Certification CCNA 1 : Introduction to Networks — Cisco Networking Academy"
+                class="card__order-img"
+                loading="lazy"
+                draggable="false"
+              />
+              <span class="card__order-badge">Cisco Networking Academy</span>
+            </button>
+          </article>
+
+          <article class="card card--cred">
+            <div class="card__body">
+              <p class="card__meta">Avril 2026</p>
+              <h3 class="card__heading">
+                Communication for Development (C4D)
+              </h3>
+            </div>
+            <button
+              type="button"
+              class="card__media card__media--order"
+              data-mission-image="public/certifications/cert-unicef-c4d.png"
+              data-mission-title="Communication for Development (C4D) — UNICEF"
+              data-mission-eyebrow="Certification"
+              aria-label="Afficher la certification : Communication for Development (C4D)"
+              aria-haspopup="dialog"
+              aria-controls="mission-dialog"
+            >
+              <img
+                src="public/certifications/thumb-unicef-c4d.png"
+                alt="Certification Communication for Development (C4D) — UNICEF"
+                class="card__order-img"
+                loading="lazy"
+                draggable="false"
+              />
+              <span class="card__order-badge">UNICEF</span>
+            </button>
+          </article>
+
+          <article class="card card--cred">
             <div class="card__body">
               <p class="card__meta">2025</p>
               <h3 class="card__heading">SSV (Single Site Verification)</h3>
             </div>
-            <div
-              class="card__media card__media--tall card__media--signal"
-              data-signal="ssv-sector"
+            <button
+              type="button"
+              class="card__media card__media--order"
+              data-mission-image="public/certifications/cert-ssv-delcom.png"
+              data-mission-title="Single Site Verification (SSV) — DELCOM GROUP"
+              data-mission-eyebrow="Certification"
+              aria-label="Afficher la certification : Single Site Verification (SSV)"
+              aria-haspopup="dialog"
+              aria-controls="mission-dialog"
             >
-              <canvas class="signal-canvas" aria-hidden="true"></canvas>
-              <span class="tag tag--paper">DELCOM GROUP</span>
-            </div>
+              <img
+                src="public/certifications/thumb-ssv-delcom.png"
+                alt="Attestation de formation SSV (Single Site Verification) — DELCOM GROUP"
+                class="card__order-img"
+                loading="lazy"
+                draggable="false"
+              />
+              <span class="card__order-badge">DELCOM GROUP</span>
+            </button>
           </article>
 
-          <article class="card card--cred" data-signal-card>
-            <div class="card__body">
-              <p class="card__meta">2024</p>
-              <h3 class="card__heading">CCNA 200-301</h3>
-            </div>
-            <div
-              class="card__media card__media--tall card__media--signal"
-              data-signal="ccna-core"
-            >
-              <canvas class="signal-canvas" aria-hidden="true"></canvas>
-              <span class="tag tag--paper">ADE TECHNOLOGY</span>
-            </div>
-          </article>
-
-          <article class="card card--cred" data-signal-card>
+          <article class="card card--cred">
             <div class="card__body">
               <p class="card__meta">2024</p>
               <h3 class="card__heading">Formation de la langue Anglaise</h3>
             </div>
-            <div
-              class="card__media card__media--tall card__media--signal"
-              data-signal="voice-spectrum"
+            <button
+              type="button"
+              class="card__media card__media--order"
+              data-mission-image="public/certifications/cert-anglais-tbc.png"
+              data-mission-title="English Language Proficiency Certificate — TBC"
+              data-mission-eyebrow="Certification"
+              aria-label="Afficher la certification : Formation de la langue Anglaise"
+              aria-haspopup="dialog"
+              aria-controls="mission-dialog"
             >
-              <canvas class="signal-canvas" aria-hidden="true"></canvas>
-              <span class="tag tag--paper">TBC</span>
-            </div>
+              <img
+                src="public/certifications/thumb-anglais-tbc.png"
+                alt="English Language Proficiency Certificate — TBC"
+                class="card__order-img"
+                loading="lazy"
+                draggable="false"
+              />
+              <span class="card__order-badge">TBC</span>
+            </button>
           </article>
         </div>
       </section>
@@ -570,34 +717,47 @@
         <ul class="formations">
           <li class="formation" data-signal-card>
             <div class="formation__copy">
-              <p class="formation__dates">2021 - 2024</p>
+              <p class="formation__dates">Août — Décembre 2024</p>
+              <p class="formation__text">
+                Certificat de formation sur « CCNA 200-301 ». ADE TECHNOLOGY, Bénin.
+              </p>
+            </div>
+            <div
+              class="formation__media formation__media--logo card__media--signal"
+              data-signal="oscilloscope"
+            >
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <div class="formation__logo">
+                <img
+                  src="public/logo/LOGO DE ADE TECHNOLOGY.jpg"
+                  alt="Logo ADE Technology"
+                  draggable="false"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </li>
+          <li class="formation" data-signal-card>
+            <div class="formation__copy">
+              <p class="formation__dates">Octobre 2021 — Août 2024</p>
               <p class="formation__text">
                 Diplôme de technicien en informatique et télécommunications. INSTI
                 (ex-IUT de Lokossa), Bénin
               </p>
             </div>
             <div
-              class="formation__media card__media--signal"
+              class="formation__media formation__media--logo card__media--signal"
               data-signal="wifi-fill"
-              aria-hidden="true"
             >
-              <canvas class="signal-canvas"></canvas>
-            </div>
-          </li>
-          <li class="formation" data-signal-card>
-            <div class="formation__copy">
-              <p class="formation__dates">2022</p>
-              <p class="formation__text">
-                Baccalauréat série D. Complexe scolaire privé Les Palmiers, Porto-Novo,
-                Bénin.
-              </p>
-            </div>
-            <div
-              class="formation__media card__media--signal"
-              data-signal="oscilloscope"
-              aria-hidden="true"
-            >
-              <canvas class="signal-canvas"></canvas>
+              <canvas class="signal-canvas" aria-hidden="true"></canvas>
+              <div class="formation__logo">
+                <img
+                  src="public/logo/LOGO DE INSTI LOKOSSA.png"
+                  alt="Logo INSTI Lokossa"
+                  draggable="false"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </li>
         </ul>
@@ -606,7 +766,7 @@
       <section class="section section--split" id="langues" aria-labelledby="lang-title">
         <header class="section-head">
           <div class="section-head__cell"></div>
-          <h2 class="kicker" id="lang-title">[ Langues ]</h2>
+          <h2 class="kicker" id="lang-title">[ Langues et hobbies ]</h2>
           <div class="section-head__cell"></div>
         </header>
 
@@ -619,7 +779,7 @@
           >
             <canvas class="signal-canvas"></canvas>
           </div>
-          <ul class="rows">
+          <ul class="rows rows--languages">
             <li class="row">
               <span class="row__label">Français</span>
               <span class="row__value">Excellent</span>
@@ -635,6 +795,10 @@
             <li class="row">
               <span class="row__label">Bariba</span>
               <span class="row__value">Excellent</span>
+            </li>
+            <li class="row">
+              <span class="row__label">Hobbies</span>
+              <span class="row__value">Sport et lecture</span>
             </li>
           </ul>
         </div>
@@ -668,7 +832,12 @@
           </li>
         </ul>
         <div class="contact__actions">
-          <a class="btn btn--on-ink" href="#experiences">Voir les expériences</a>
+          <a
+            class="btn btn--on-ink"
+            href="https://wa.me/2290153958777"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Me contacter sur WhatsApp</a>
           <a class="btn btn--on-ink-ghost" href="tb.pdf" data-cv>CV PDF</a>
         </div>
         <canvas class="contact__stars-canvas" aria-hidden="true"></canvas>
@@ -687,7 +856,10 @@
         </button>
       </header>
       <div class="mission-dialog__body">
-        <img draggable="false" class="mission-dialog__image" alt="" />
+        <div class="mission-dialog__media-wrap">
+          <img draggable="false" class="mission-dialog__image" alt="" />
+          <div class="mission-dialog__shield" aria-hidden="true"></div>
+        </div>
         <p class="mission-dialog__error" role="status" hidden>L’image n’a pas pu être chargée. Fermez cette fenêtre et réessayez.</p>
       </div>
     </dialog>

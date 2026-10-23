@@ -559,6 +559,20 @@ ul {
   gap: 41px;
 }
 
+.mission-list-toggle {
+  display: none;
+  margin: 24px auto 0;
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--ink-navy);
+}
+
+.mission-list-toggle:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -690,10 +704,30 @@ html.mission-dialog-open {
   overscroll-behavior: contain;
 }
 
+.mission-dialog__media-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.mission-dialog__shield {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 .mission-dialog__image {
   display: block;
   width: 100%;
   height: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .mission-dialog__image[hidden] {
@@ -711,7 +745,15 @@ html.mission-dialog-open {
   object-fit: cover;
   object-position: top center;
   display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
   transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.card--cred .card__media--order {
+  height: 218px;
 }
 
 .card__order-badge {
@@ -753,7 +795,7 @@ html.mission-dialog-open {
 }
 
 .card--cred {
-  min-height: 392px;
+  min-height: 408px;
 }
 
 .card--experience {
@@ -1002,6 +1044,29 @@ html.mission-dialog-open {
   flex-shrink: 0;
 }
 
+.formation__media.formation__media--logo {
+  min-height: 112px;
+  border: 0;
+}
+
+.formation__logo {
+  position: absolute;
+  inset: 4px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: #ffffff;
+  pointer-events: none;
+}
+
+.formation__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .split {
   display: flex;
   align-items: flex-end;
@@ -1025,6 +1090,14 @@ html.mission-dialog-open {
   flex-direction: column;
   gap: 19px;
   flex-shrink: 0;
+}
+
+.rows--languages {
+  align-self: stretch;
+}
+
+.rows--languages > .row:last-child {
+  margin-top: auto;
 }
 
 .row {
@@ -1310,6 +1383,17 @@ html.mission-dialog-open {
   .card--short,
   .card--cred {
     min-height: 0;
+  }
+
+  #delcom-missions.is-collapsed > .card--mission:nth-child(n + 3) {
+    display: none;
+  }
+
+  .mission-list-toggle:not([hidden]) {
+    display: flex;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
   }
 
   .formation__copy {

@@ -772,7 +772,8 @@ html.mission-dialog-open {
 }
 
 .card--experience .card__desc {
-  margin-top: 8px;
+  margin-top: 16px;
+  font-style: italic;
   color: var(--ink-muted);
 }
 

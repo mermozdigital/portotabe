@@ -286,14 +286,18 @@ ul {
 .hero__pill {
   display: inline-flex;
   align-items: center;
-  height: 34px;
-  padding: 0 14px;
+  justify-content: center;
+  min-height: 34px;
+  max-width: 100%;
+  padding: 8px 14px;
   border: 1px solid var(--accent-border);
   background: var(--accent-soft);
   color: var(--ink);
   font-size: 14px;
   font-weight: 400;
   letter-spacing: -0.015em;
+  line-height: 18px;
+  text-align: center;
 }
 
 .hero__actions {

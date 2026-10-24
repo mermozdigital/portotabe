@@ -896,7 +896,7 @@ html.mission-dialog-open {
 
 .card__tags {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   gap: 4px;
   margin-top: auto;

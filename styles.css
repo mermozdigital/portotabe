@@ -1500,7 +1500,12 @@ html.mission-dialog-open {
 }
 
 .split--cols .rows {
-  width: 264px;
+  width: 360px;
+  align-self: flex-start;
+}
+
+.split--cols .rows > .row:last-child {
+  margin-top: 0;
 }
 
 @media (max-width: 720px) {

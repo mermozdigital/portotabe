@@ -1523,3 +1523,11 @@ html.mission-dialog-open {
 .employer .card-grid--4:not(#delcom-missions) {
   gap: 24px;
 }
+
+.skills {
+  padding: 32px 24px;
+}
+
+.skills .hero__pills {
+  margin-top: 0;
+}

@@ -1546,7 +1546,7 @@ html.mission-dialog-open {
   width: 100%;
   aspect-ratio: 3 / 4;
   padding: 0;
-  border: 2px solid var(--accent);
+  border: 1px solid rgba(36, 82, 214, 0.5);
   background: var(--ink);
   overflow: hidden;
   cursor: zoom-in;

@@ -1519,3 +1519,7 @@ html.mission-dialog-open {
     width: 100%;
   }
 }
+
+.employer .card-grid--4:not(#delcom-missions) {
+  gap: 24px;
+}

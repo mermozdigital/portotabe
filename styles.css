@@ -1490,3 +1490,22 @@ html.mission-dialog-open {
   color: var(--border);
   font-weight: 400;
 }
+
+/* Languages (left) and hobbies (right) side by side */
+.split--cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 48px;
+}
+
+.split--cols .rows {
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .split--cols {
+    grid-template-columns: 1fr;
+    gap: 19px;
+  }
+}

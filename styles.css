@@ -1493,19 +1493,24 @@ html.mission-dialog-open {
 
 /* Languages (left) and hobbies (right) side by side */
 .split--cols {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 48px;
 }
 
 .split--cols .rows {
-  width: 100%;
+  width: 264px;
 }
 
 @media (max-width: 720px) {
   .split--cols {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
     gap: 19px;
+  }
+
+  .split--cols .rows {
+    width: 100%;
   }
 }

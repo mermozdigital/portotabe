@@ -16,6 +16,9 @@ for (const file of ["index.html", "styles.css", "script.js"]) {
   cpSync(resolve(root, file), resolve(output, file));
 }
 
+// English version (served at /en/).
+cpSync(resolve(root, "en"), resolve(output, "en"), { recursive: true });
+
 cpSync(publicDirectory, resolve(output, "public"), {
   recursive: true,
   filter: (path) => path === publicDirectory || path === publicCV || !extname(path) || imageExtensions.has(extname(path).toLowerCase()),
